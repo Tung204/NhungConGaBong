@@ -124,6 +124,8 @@ namespace NhungConGaBong
         private void rdbDatChuaSuDung_CheckedChanged(object sender, EventArgs e)
         {
             cbbChuaSuDung.Enabled = true;
+            cbbNongNghiep.SelectedIndex = -1;
+            cbbPhiNongNghiep.SelectedIndex = -1;
             cbbNongNghiep.Enabled = false;
             cbbPhiNongNghiep.Enabled = false;
         }
@@ -131,6 +133,8 @@ namespace NhungConGaBong
         private void rdbDatNongNghiep_CheckedChanged(object sender, EventArgs e)
         {
             cbbNongNghiep.Enabled = true;
+            cbbChuaSuDung.SelectedIndex = -1;
+            cbbPhiNongNghiep.SelectedIndex = -1;
             cbbChuaSuDung.Enabled = false;
             cbbPhiNongNghiep.Enabled = false;
         }
@@ -138,6 +142,8 @@ namespace NhungConGaBong
         private void rdbDatPhiNpngNghiep_CheckedChanged(object sender, EventArgs e)
         {
             cbbPhiNongNghiep.Enabled = true;
+            cbbNongNghiep.SelectedIndex = -1;
+            cbbChuaSuDung.SelectedIndex = -1;
             cbbChuaSuDung.Enabled = false;
             cbbNongNghiep.Enabled = false;
         }
@@ -199,7 +205,6 @@ namespace NhungConGaBong
                 dgvDanhSachHD.DataSource = null;
                 dgvDanhSachHD.DataSource = hdList;
                 dgvDanhSachHD.AutoGenerateColumns = true;
-
             }
         }
 
@@ -210,9 +215,9 @@ namespace NhungConGaBong
                 DataGridViewRow selectedRow = dgvDanhSachHD.Rows[e.RowIndex];
 
                 txtMaHD.Text = selectedRow.Cells["MaHD"].Value.ToString();
-                cboNhanVien.DisplayMember = selectedRow.Cells["MaNV"].Value.ToString();
-                cboKhachHang.DisplayMember = selectedRow.Cells["MaKH"].Value.ToString();
-                cboHopDong.SelectedValue = selectedRow.Cells["TenHD"].Value.ToString();
+                cboNhanVien.Text = selectedRow.Cells["MaNV"].Value.ToString();
+                cboKhachHang.Text = selectedRow.Cells["MaKH"].Value.ToString();
+                cboHopDong.Text = selectedRow.Cells["TenHD"].Value.ToString();
                 txtDienTich.Text = selectedRow.Cells["DienTich"].Value.ToString();
                 txtSoTo.Text = selectedRow.Cells["SoTo"].Value.ToString();
                 txtSoThua.Text = selectedRow.Cells["SoThua"].Value.ToString();
@@ -250,6 +255,11 @@ namespace NhungConGaBong
             }
             else
                 lblNhanVien.Text = "";
+        }
+
+        private void dgvDanhSachHD_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

@@ -111,6 +111,7 @@
             dgvDanhSachHD.Size = new Size(1617, 655);
             dgvDanhSachHD.TabIndex = 19;
             dgvDanhSachHD.CellClick += dgvDanhSachHD_CellClick;
+            dgvDanhSachHD.CellContentClick += dgvDanhSachHD_CellContentClick;
             // 
             // MaHD
             // 

@@ -18,7 +18,6 @@ namespace NhungConGaBong
         List<KhachHang> khachhangList = new List<KhachHang>();
         List<KhachHang> khList = new List<KhachHang>();
         List<NganHang> nganhangList = new List<NganHang>();
-
         public frmKhachHang()
         {
             InitializeComponent();
@@ -39,6 +38,9 @@ namespace NhungConGaBong
             cboNH.SelectedIndex = -1;
             khList.Clear();
             gpbThongTin.Hide();
+            //tt
+            Random random = new Random();
+            txtMaKH.Text = "KH" + random.Next(100000000, 999999999).ToString("D2");
         }
 
         private void btnThem_Click(object sender, EventArgs e)
@@ -46,7 +48,7 @@ namespace NhungConGaBong
             dgvKhachHang.AutoGenerateColumns = false;
 
             KhachHang kh = new KhachHang();
-            txtMaKH.Text = kh.MaKH;
+            kh.MaKH = txtMaKH.Text;
             kh.HoDemKH = txtHoDem.Text;
             kh.TenKH = txtTen.Text;
             kh.DienThoai = txtSDT.Text;
@@ -60,9 +62,8 @@ namespace NhungConGaBong
             dgvKhachHang.DataSource = null;
             dgvKhachHang.DataSource = khList;
             dgvKhachHang.AutoGenerateColumns = true;
-            btnHienSua.Enabled = true;
-            btnLuu.Enabled = true;
-
+          
+            btnLuu.Enabled = true;   
         }
 
         private void btnLuu_Click(object sender, EventArgs e)
@@ -122,8 +123,10 @@ namespace NhungConGaBong
         {
             if (e.RowIndex >= 0 && e.RowIndex < dgvKhachHang.Rows.Count)
             {
+                btnHienSua.Enabled = true; 
+                btnXoa.Enabled = true;
                 DataGridViewRow selectedRow = dgvKhachHang.Rows[e.RowIndex];
-                txtMaKH.Text = selectedRow.Cells["MaKH"].Value.ToString();
+                txtMaKH.Text = selectedRow.Cells["MaKH"].Value.ToString()!;
                 txtHoDem.Text = selectedRow.Cells["HoDem"].Value.ToString();
                 txtTen.Text = selectedRow.Cells["tenKH"].Value.ToString();
                 txtSDT.Text = selectedRow.Cells["Dienthoai"].Value.ToString();
