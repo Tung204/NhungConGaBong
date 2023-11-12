@@ -49,7 +49,6 @@
             label1 = new Label();
             label2 = new Label();
             label3 = new Label();
-            rdbDatNongNghiep = new RadioButton();
             rdbDatPhiNpngNghiep = new RadioButton();
             rdbDatChuaSuDung = new RadioButton();
             cbbNongNghiep = new ComboBox();
@@ -77,6 +76,7 @@
             panel4 = new Panel();
             panel3 = new Panel();
             panel2 = new Panel();
+            rdbDatNongNghiep = new RadioButton();
             ((System.ComponentModel.ISupportInitialize)dgvDanhSachHD).BeginInit();
             tableLayoutPanel1.SuspendLayout();
             panel1.SuspendLayout();
@@ -296,18 +296,6 @@
             label3.Size = new Size(98, 20);
             label3.TabIndex = 20;
             label3.Text = "Chọn loại đất";
-            // 
-            // rdbDatNongNghiep
-            // 
-            rdbDatNongNghiep.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            rdbDatNongNghiep.AutoSize = true;
-            rdbDatNongNghiep.Location = new Point(116, 14);
-            rdbDatNongNghiep.Name = "rdbDatNongNghiep";
-            rdbDatNongNghiep.Size = new Size(185, 24);
-            rdbDatNongNghiep.TabIndex = 21;
-            rdbDatNongNghiep.Text = "Nhóm đất nông nghiệp";
-            rdbDatNongNghiep.UseVisualStyleBackColor = true;
-            rdbDatNongNghiep.CheckedChanged += rdbDatNongNghiep_CheckedChanged;
             // 
             // rdbDatPhiNpngNghiep
             // 
@@ -590,6 +578,18 @@
             panel2.Size = new Size(120, 164);
             panel2.TabIndex = 31;
             // 
+            // rdbDatNongNghiep
+            // 
+            rdbDatNongNghiep.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            rdbDatNongNghiep.AutoSize = true;
+            rdbDatNongNghiep.Location = new Point(116, 14);
+            rdbDatNongNghiep.Name = "rdbDatNongNghiep";
+            rdbDatNongNghiep.Size = new Size(185, 24);
+            rdbDatNongNghiep.TabIndex = 21;
+            rdbDatNongNghiep.Text = "Nhóm đất nông nghiệp";
+            rdbDatNongNghiep.UseVisualStyleBackColor = true;
+            rdbDatNongNghiep.CheckedChanged += rdbDatNongNghiep_CheckedChanged;
+            // 
             // frmHopDong
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -628,7 +628,6 @@
         private Label label1;
         private Label label2;
         private Label label3;
-        private RadioButton rdbDatNongNghiep;
         private RadioButton rdbDatPhiNpngNghiep;
         private RadioButton rdbDatChuaSuDung;
         private ComboBox cbbNongNghiep;
@@ -667,5 +666,6 @@
         private DataGridViewTextBoxColumn SoTo;
         private DataGridViewTextBoxColumn SoThua;
         private DataGridViewTextBoxColumn NgayLap;
+        private RadioButton rdbDatNongNghiep;
     }
 }
