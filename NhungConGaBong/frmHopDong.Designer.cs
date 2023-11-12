@@ -92,10 +92,10 @@
             SoThuaView = new DataGridViewTextBoxColumn();
             NgayLapHopDong = new DataGridViewTextBoxColumn();
             panel6 = new Panel();
+            btnXoaDS = new Button();
             label11 = new Label();
             btnXuat = new Button();
             txtNhap = new TextBox();
-            btnXoaDS = new Button();
             tableLayoutPanel1.SuspendLayout();
             panel1.SuspendLayout();
             panel5.SuspendLayout();
@@ -447,6 +447,7 @@
             panel4.Name = "panel4";
             panel4.Size = new Size(746, 196);
             panel4.TabIndex = 33;
+            panel4.Paint += panel4_Paint;
             // 
             // label7
             // 
@@ -793,6 +794,16 @@
             panel6.Size = new Size(1494, 110);
             panel6.TabIndex = 0;
             // 
+            // btnXoaDS
+            // 
+            btnXoaDS.Location = new Point(904, 47);
+            btnXoaDS.Name = "btnXoaDS";
+            btnXoaDS.Size = new Size(94, 29);
+            btnXoaDS.TabIndex = 3;
+            btnXoaDS.Text = "Xoá";
+            btnXoaDS.UseVisualStyleBackColor = true;
+            btnXoaDS.Click += btnXoaDS_Click;
+            // 
             // label11
             // 
             label11.AutoSize = true;
@@ -819,16 +830,6 @@
             txtNhap.Size = new Size(234, 27);
             txtNhap.TabIndex = 0;
             txtNhap.TextChanged += txtNhap_TextChanged;
-            // 
-            // btnXoaDS
-            // 
-            btnXoaDS.Location = new Point(904, 47);
-            btnXoaDS.Name = "btnXoaDS";
-            btnXoaDS.Size = new Size(94, 29);
-            btnXoaDS.TabIndex = 3;
-            btnXoaDS.Text = "Xoá";
-            btnXoaDS.UseVisualStyleBackColor = true;
-            btnXoaDS.Click += btnXoaDS_Click;
             // 
             // frmHopDong
             // 
