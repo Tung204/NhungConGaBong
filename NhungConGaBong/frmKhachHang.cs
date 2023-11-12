@@ -43,7 +43,6 @@ namespace NhungConGaBong
 
             khList.Clear();
             gpbThongTin.Hide();
-
             maxMakh = khachhangList.Max(kh => int.Parse(kh.MaKH.Substring(2)));
             txtMaKH.Text = "KH" + (maxMakh + 1).ToString("D2");
         }
