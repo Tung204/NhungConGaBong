@@ -161,7 +161,8 @@ namespace NhungConGaBong
             int selectedIndex = dgvDanhSachHD.SelectedCells[0].RowIndex;
             if (selectedIndex >= 0)
             {
-                DialogResult result = MessageBox.Show("Bạn có chắc chắn muốn xoá khách hàng này?", "Xác nhận xoá", MessageBoxButtons.YesNo, MessageBoxIcon.Warning); hdList.RemoveAt(selectedIndex);
+                DialogResult result = MessageBox.Show("Bạn có chắc chắn muốn xoá khách hàng này?", "Xác nhận xoá", MessageBoxButtons.YesNo, MessageBoxIcon.Warning); 
+                hdList.RemoveAt(selectedIndex);
                 dgvDanhSachHD.DataSource = null;
                 dgvDanhSachHD.DataSource = hdList;
                 dgvDanhSachHD.AutoGenerateColumns = true;
