@@ -17,10 +17,6 @@
 mono_crash.*
 
 # Build results
-git add .gitignore
-git commit -m "Allow tracking bin/Debug"
-git add bin/Debug
-git commit -m "Add bin/Debug"
 
 
 # Visual Studio 2015/2017 cache/options directory
