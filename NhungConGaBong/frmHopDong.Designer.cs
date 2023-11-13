@@ -124,6 +124,7 @@
             // cboHopDong
             // 
             cboHopDong.FormattingEnabled = true;
+            cboHopDong.Items.AddRange(new object[] { "Hợp đồng Mua bán đất", "Hợp đồng Cho thuê đất", "Hợp đồng Thuê đất", "Hợp đồng Môi giới đất", "Hợp đồng Sử dụng đất theo mục đích", "Hợp đồng Chuyển quyền sở hữu đất", "Hợp đồng Trồng trọt đất", "Hợp đồng Thừa kế đất" });
             cboHopDong.Location = new Point(125, 53);
             cboHopDong.Name = "cboHopDong";
             cboHopDong.Size = new Size(237, 28);
@@ -236,6 +237,7 @@
             cbbNongNghiep.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             cbbNongNghiep.DropDownStyle = ComboBoxStyle.DropDownList;
             cbbNongNghiep.FormattingEnabled = true;
+            cbbNongNghiep.Items.AddRange(new object[] { "Đất chuyên trồng lúa nước", "Đất trồng lúa nước còn lại", "Đất lúa nương\t", "Đất bằng trồng cây hàng năm khác", "Đất nương rẫy trồng cây hàng năm khác", "Đất trồng cây lâu năm", "Đất rừng sản xuất", "Đất rừng phòng hộ", "Đất rừng đặc dụng\t", "Đất nuôi trồng thủy sản", "Đất làm muối\t", "Đất nông nghiệp khác" });
             cbbNongNghiep.Location = new Point(332, 10);
             cbbNongNghiep.Name = "cbbNongNghiep";
             cbbNongNghiep.Size = new Size(408, 28);
@@ -246,6 +248,7 @@
             cbbPhiNongNghiep.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             cbbPhiNongNghiep.DropDownStyle = ComboBoxStyle.DropDownList;
             cbbPhiNongNghiep.FormattingEnabled = true;
+            cbbPhiNongNghiep.Items.AddRange(new object[] { "Đất ở tại nông thôn", "Đất ở tại đô thị", "Đất xây dựng trụ sở cơ quan", "Đất xây dựng trụ sở của tổ chức sự nghiệp", "Đất xây dựng cơ sở văn hóa", "Đất xây dựng cơ sở y tế", "Đất xây dựng cơ sở giáo dục và đào tạo\t", "Đất xây dựng cơ sở thể dục thể thao", "Đất xây dựng cơ sở khoa học và công nghệ", "Đất xây dựng cơ sở dịch vụ xã hội", "Đất xây dựng cơ sở ngoại giao", "Đất xây dựng công trình sự nghiệp khác", "Đất quốc phòng", "Đất an ninh", "Đất khu công nghiệp", "Đất khu công nghiệp", "Đất khu chế xuất", "Đất cụm công nghiệp", "Đất cơ sở sản xuất phi nông nghiệp", "Đất thương mại, dịch vụ", "Đất sử dụng cho hoạt động khoáng sản", "Đất sản xuất vật liệu xây dựng, làm đồ gốm", "Đất giao thông", "Đất thủy lợi", "Đất công trình năng lượng", "Đất công trình bưu chính, viễn thông", "Đất sinh hoạt cộng đồng", "Đất khu vui chơi, giải trí công cộng", "Đất chợ", "Đất có di tích lịch sử - văn hóa", "Đất danh lam thắng cảnh", "Đất bãi thải, xử lý chất thải", "Đất công trình công cộng khác", "Đất cơ sở tôn giáo", "Đất cơ sở tín ngưỡng", "Đất làm nghĩa trang, nghĩa địa, nhà tang lễ, nhà hỏa táng", "Đất sông, ngòi, kênh, rạch, suối", "Đất có mặt nước chuyên dùng", "Đất phi nông nghiệp khác" });
             cbbPhiNongNghiep.Location = new Point(332, 61);
             cbbPhiNongNghiep.Name = "cbbPhiNongNghiep";
             cbbPhiNongNghiep.Size = new Size(408, 28);
@@ -256,6 +259,7 @@
             cbbChuaSuDung.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             cbbChuaSuDung.DropDownStyle = ComboBoxStyle.DropDownList;
             cbbChuaSuDung.FormattingEnabled = true;
+            cbbChuaSuDung.Items.AddRange(new object[] { "", "Đất bằng chưa sử dụng", "Đất đồi núi chưa sử dụng", "Núi đá không có rừng cây" });
             cbbChuaSuDung.Location = new Point(332, 110);
             cbbChuaSuDung.Name = "cbbChuaSuDung";
             cbbChuaSuDung.Size = new Size(408, 28);

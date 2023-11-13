@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Hoc_Tap\\OOP-Lap_trinh_huong_doi_tuong\\NhungConGaBong\\NhungConGaBong\\NhungConGaBong.csproj": {}
+    "D:\\NhungConGaBong\\NhungConGaBong\\NhungConGaBong.csproj": {}
   },
   "projects": {
-    "D:\\Hoc_Tap\\OOP-Lap_trinh_huong_doi_tuong\\NhungConGaBong\\NhungConGaBong\\NhungConGaBong.csproj": {
+    "D:\\NhungConGaBong\\NhungConGaBong\\NhungConGaBong.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Hoc_Tap\\OOP-Lap_trinh_huong_doi_tuong\\NhungConGaBong\\NhungConGaBong\\NhungConGaBong.csproj",
+        "projectUniqueName": "D:\\NhungConGaBong\\NhungConGaBong\\NhungConGaBong.csproj",
         "projectName": "NhungConGaBong",
-        "projectPath": "D:\\Hoc_Tap\\OOP-Lap_trinh_huong_doi_tuong\\NhungConGaBong\\NhungConGaBong\\NhungConGaBong.csproj",
-        "packagesPath": "C:\\Users\\nguye\\.nuget\\packages\\",
-        "outputPath": "D:\\Hoc_Tap\\OOP-Lap_trinh_huong_doi_tuong\\NhungConGaBong\\NhungConGaBong\\obj\\",
+        "projectPath": "D:\\NhungConGaBong\\NhungConGaBong\\NhungConGaBong.csproj",
+        "packagesPath": "C:\\Users\\lyhuy\\.nuget\\packages\\",
+        "outputPath": "D:\\NhungConGaBong\\NhungConGaBong\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\nguye\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\lyhuy\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -58,7 +58,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     }
