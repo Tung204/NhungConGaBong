@@ -29,13 +29,10 @@ namespace NhungConGaBong
 
         public void frmHopDong_Load(object sender, EventArgs e)
         {
-            ComBoBoxDatNongNghiep();
-            ComBoBoxChonTenHD();
-            ComBoBoxDatChuaSuDung();
-            ComBoBoxDatPhiNongNghiep();
-            cbbChuaSuDung.Enabled = false;
-            cbbNongNghiep.Enabled = false;
+            rdbDatNongNghiep.Checked = true;
+            cbbNongNghiep.Enabled = true;
             cbbPhiNongNghiep.Enabled = false;
+            cbbChuaSuDung.Enabled = false;
             string path = AppDomain.CurrentDomain.BaseDirectory;
             string fileName = path + @"FileKhachHang.csv";
             khList = KhachHang.ReadFromFile(fileName);
@@ -46,7 +43,8 @@ namespace NhungConGaBong
             nvList = NhanVien.ReadFromFile(fileName);
             cboNhanVien.DataSource = nvList;
             cboNhanVien.DisplayMember = "MaNV";
-
+            btnLuu.Enabled=false;
+            btnXoa.Enabled=false;
             dtpNgayLap.Value = DateTime.Now;
         }
         void ComBoBoxChonTenHD()
@@ -55,47 +53,6 @@ namespace NhungConGaBong
             cboHopDong.Items.Add("Chuyển nhượng quyền sử đụng đất");
             cboHopDong.Items.Add("Đấu giá đất");
             cboHopDong.Items.Add("Quyền sửa chữa nhà");
-        }
-        void ComBoBoxDatNongNghiep()
-        {
-            cbbNongNghiep.Items.Add("1. Đất chuyên trồng lúa nước");
-            cbbNongNghiep.Items.Add("2. Đất trồng lúa nước còn lại");
-            cbbNongNghiep.Items.Add("3. Đất lúa nương");
-            cbbNongNghiep.Items.Add("4. Đất bằng trồng cây hàng năm khác");
-            cbbNongNghiep.Items.Add("5. Đất nương rẫy trồng cây hàng năm khác");
-            cbbNongNghiep.Items.Add("6. Đất trồng cây lâu năm");
-            cbbNongNghiep.Items.Add("7. Đất rừng sản xuất");
-            cbbNongNghiep.Items.Add("8. Đất rừng phòng hộ");
-            cbbNongNghiep.Items.Add("9. Đất rừng đặc dụng");
-            cbbNongNghiep.Items.Add("10. Đất nuôi trồng thủy sản");
-            cbbNongNghiep.Items.Add("11. Đất làm muối");
-            cbbNongNghiep.Items.Add("12. Đất nông nghiệp khác");
-        }
-        void ComBoBoxDatPhiNongNghiep()
-        {
-            cbbPhiNongNghiep.Items.Add("1. Đất ở tại nông thôn");
-            cbbPhiNongNghiep.Items.Add("2.Đất ở tại đô thị");
-            cbbPhiNongNghiep.Items.Add("3. Đất xây dựng cơ sở giáo dục và đào tạo");
-            cbbPhiNongNghiep.Items.Add("4. Đất xây dựng cơ sở thể dục thể thao");
-            cbbPhiNongNghiep.Items.Add("5. Đất xây dựng cơ sở khoa học và công nghệ");
-            cbbPhiNongNghiep.Items.Add("6. Đất an ninh");
-            cbbPhiNongNghiep.Items.Add("7. Đất khu công nghiệp");
-            cbbPhiNongNghiep.Items.Add("8. Đất khu vui chơi, giải trí công cộng");
-            cbbPhiNongNghiep.Items.Add("9. Đất chợ");
-            cbbPhiNongNghiep.Items.Add("10. Đất công trình năng lượng");
-            cbbPhiNongNghiep.Items.Add("11. Đất công trình bưu chính, viễn thông");
-            cbbPhiNongNghiep.Items.Add("12. Đất có di tích lịch sử - văn hóa");
-            cbbPhiNongNghiep.Items.Add("13. Đất danh lam thắng cảnh");
-            cbbPhiNongNghiep.Items.Add("14. Đất cơ sở tôn giáo");
-            cbbPhiNongNghiep.Items.Add("15. Đất sông, ngòi, kênh, rạch, suối");
-            cbbPhiNongNghiep.Items.Add("16. Đất làm nghĩa trang, nghĩa địa, nhà tang lễ, nhà hỏa táng");
-        }
-        void ComBoBoxDatChuaSuDung()
-        {
-            cbbChuaSuDung.Items.Add("1. Đất bằng chưa sử dụng");
-            cbbChuaSuDung.Items.Add("2. Đất đồi núi chưa sử dụng");
-            cbbChuaSuDung.Items.Add("3. Núi đá không có rừng cây");
-
         }
         private string GenerateRandomContractCode()
         {
@@ -230,6 +187,8 @@ namespace NhungConGaBong
             hd.TriGia = txtTriGia.Text;
             hd.NgayLap = Convert.ToDateTime(dtpNgayLap.Value);
 
+            btnXoa.Enabled = true;
+            btnLuu.Enabled = true;
             hdList.Add(hd);
             dgvDanhSachHD.DataSource = hdList;
             dgvDanhSachHD.AutoGenerateColumns = true;
