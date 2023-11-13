@@ -43,7 +43,8 @@ namespace NhungConGaBong
             nvList = NhanVien.ReadFromFile(fileName);
             cboNhanVien.DataSource = nvList;
             cboNhanVien.DisplayMember = "MaNV";
-
+            btnLuu.Enabled=false;
+            btnXoa.Enabled=false;
             dtpNgayLap.Value = DateTime.Now;
         }
         void ComBoBoxChonTenHD()
@@ -186,6 +187,8 @@ namespace NhungConGaBong
             hd.TriGia = txtTriGia.Text;
             hd.NgayLap = Convert.ToDateTime(dtpNgayLap.Value);
 
+            btnXoa.Enabled = true;
+            btnLuu.Enabled = true;
             hdList.Add(hd);
             dgvDanhSachHD.DataSource = hdList;
             dgvDanhSachHD.AutoGenerateColumns = true;

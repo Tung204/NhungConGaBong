@@ -197,7 +197,7 @@
             tbpAdd.Location = new Point(4, 29);
             tbpAdd.Name = "tbpAdd";
             tbpAdd.Padding = new Padding(3);
-            tbpAdd.Size = new Size(1129, 516);
+            tbpAdd.Size = new Size(1131, 512);
             tbpAdd.TabIndex = 0;
             tbpAdd.Text = "Thêm";
             tbpAdd.UseVisualStyleBackColor = true;
@@ -275,6 +275,7 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(1011, 105);
             panel1.TabIndex = 15;
+            panel1.Paint += panel1_Paint;
             // 
             // cboGioiTinh
             // 
@@ -296,6 +297,7 @@
             // 
             // txtMaNV
             // 
+            txtMaNV.Enabled = false;
             txtMaNV.Location = new Point(117, 9);
             txtMaNV.Name = "txtMaNV";
             txtMaNV.Size = new Size(125, 27);
@@ -312,11 +314,12 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(45, 64);
+            label2.Location = new Point(14, 64);
             label2.Name = "label2";
             label2.Size = new Size(66, 20);
             label2.TabIndex = 2;
             label2.Text = "Họ đệm:";
+            label2.Click += label2_Click;
             // 
             // label9
             // 
@@ -329,10 +332,11 @@
             // 
             // txtHoDem
             // 
-            txtHoDem.Location = new Point(117, 61);
+            txtHoDem.Location = new Point(86, 61);
             txtHoDem.Name = "txtHoDem";
-            txtHoDem.Size = new Size(125, 27);
+            txtHoDem.Size = new Size(168, 27);
             txtHoDem.TabIndex = 4;
+            txtHoDem.TextChanged += txtHoDem_TextChanged;
             txtHoDem.KeyPress += txtHoDem_KeyPress;
             // 
             // label8
@@ -390,7 +394,7 @@
             // 
             // txtDiaChi
             // 
-            txtDiaChi.Location = new Point(599, 64);
+            txtDiaChi.Location = new Point(599, 61);
             txtDiaChi.Name = "txtDiaChi";
             txtDiaChi.Size = new Size(384, 27);
             txtDiaChi.TabIndex = 7;
@@ -400,11 +404,11 @@
             dgvNhanVien.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvNhanVien.Columns.AddRange(new DataGridViewColumn[] { MaNV, HoDem, Ten, NgaySinh, GioiTinh, DiaChi, SDT });
             dgvNhanVien.Dock = DockStyle.Bottom;
-            dgvNhanVien.Location = new Point(3, 164);
+            dgvNhanVien.Location = new Point(3, 160);
             dgvNhanVien.Name = "dgvNhanVien";
             dgvNhanVien.RowHeadersWidth = 51;
             dgvNhanVien.RowTemplate.Height = 29;
-            dgvNhanVien.Size = new Size(1123, 349);
+            dgvNhanVien.Size = new Size(1125, 349);
             dgvNhanVien.TabIndex = 11;
             dgvNhanVien.CellClick += dgvNhanVien_CellClick;
             dgvNhanVien.RowPostPaint += dgvNhanVien_RowPostPaint;
@@ -469,10 +473,11 @@
             // 
             tbcNhanVien.Controls.Add(tbpAdd);
             tbcNhanVien.Controls.Add(tbpDanhSach);
-            tbcNhanVien.Location = new Point(0, 1);
+            tbcNhanVien.Dock = DockStyle.Fill;
+            tbcNhanVien.Location = new Point(0, 0);
             tbcNhanVien.Name = "tbcNhanVien";
             tbcNhanVien.SelectedIndex = 0;
-            tbcNhanVien.Size = new Size(1137, 549);
+            tbcNhanVien.Size = new Size(1139, 545);
             tbcNhanVien.TabIndex = 0;
             // 
             // FrmNhanVien

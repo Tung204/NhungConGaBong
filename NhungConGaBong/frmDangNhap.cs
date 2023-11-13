@@ -51,7 +51,7 @@ namespace NhungConGaBong
             {
                 if (txtMatKhau.Text == "123456")
                 {
-                    var frm = new frmQLKH();
+                    var frm = new frmMain();
                     this.Hide();
                     frm.ShowDialog();
                     this.Show();

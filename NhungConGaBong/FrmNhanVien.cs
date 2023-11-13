@@ -95,7 +95,8 @@ namespace NhungConGaBong
             nv.MaNV = newMaNV;
             nv.HoDem = txtHoDem.Text.Trim();
             nv.Ten = txtTen.Text;
-            nv.NgaySinh = DateTime.Now.Date;
+            DateTime selectedDate = dtpNgaySinh.Value.Date;
+            nv.NgaySinh = selectedDate;
             nv.GioiTinh = cboGioiTinh.Text;
             nv.DiaChi = txtDiaChi.Text;
             nv.SDT = txtSDT.Text;
@@ -262,6 +263,19 @@ namespace NhungConGaBong
         private void txtSDT_KeyPress(object sender, KeyPressEventArgs e)
         {
             Input.SoNguyen(txtSDT, e);
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void txtHoDem_TextChanged(object sender, EventArgs e)
+        {
         }
     }
 
