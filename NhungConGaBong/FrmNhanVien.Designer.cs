@@ -88,7 +88,7 @@
             tbpDanhSach.Location = new Point(4, 29);
             tbpDanhSach.Name = "tbpDanhSach";
             tbpDanhSach.Padding = new Padding(3);
-            tbpDanhSach.Size = new Size(1129, 516);
+            tbpDanhSach.Size = new Size(1131, 512);
             tbpDanhSach.TabIndex = 1;
             tbpDanhSach.Text = "Danh Sách";
             tbpDanhSach.UseVisualStyleBackColor = true;
@@ -197,7 +197,7 @@
             tbpAdd.Location = new Point(4, 29);
             tbpAdd.Name = "tbpAdd";
             tbpAdd.Padding = new Padding(3);
-            tbpAdd.Size = new Size(1131, 512);
+            tbpAdd.Size = new Size(1309, 655);
             tbpAdd.TabIndex = 0;
             tbpAdd.Text = "Thêm";
             tbpAdd.UseVisualStyleBackColor = true;
@@ -404,11 +404,11 @@
             dgvNhanVien.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvNhanVien.Columns.AddRange(new DataGridViewColumn[] { MaNV, HoDem, Ten, NgaySinh, GioiTinh, DiaChi, SDT });
             dgvNhanVien.Dock = DockStyle.Bottom;
-            dgvNhanVien.Location = new Point(3, 160);
+            dgvNhanVien.Location = new Point(3, 164);
             dgvNhanVien.Name = "dgvNhanVien";
             dgvNhanVien.RowHeadersWidth = 51;
             dgvNhanVien.RowTemplate.Height = 29;
-            dgvNhanVien.Size = new Size(1125, 349);
+            dgvNhanVien.Size = new Size(1303, 488);
             dgvNhanVien.TabIndex = 11;
             dgvNhanVien.CellClick += dgvNhanVien_CellClick;
             dgvNhanVien.RowPostPaint += dgvNhanVien_RowPostPaint;
@@ -477,14 +477,14 @@
             tbcNhanVien.Location = new Point(0, 0);
             tbcNhanVien.Name = "tbcNhanVien";
             tbcNhanVien.SelectedIndex = 0;
-            tbcNhanVien.Size = new Size(1139, 545);
+            tbcNhanVien.Size = new Size(1317, 688);
             tbcNhanVien.TabIndex = 0;
             // 
             // FrmNhanVien
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1139, 545);
+            ClientSize = new Size(1317, 688);
             Controls.Add(tbcNhanVien);
             Name = "FrmNhanVien";
             Text = "Nhân viên";
