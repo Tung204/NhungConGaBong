@@ -383,11 +383,11 @@
             // 
             // btnThemNH
             // 
-            btnThemNH.Location = new Point(307, 105);
+            btnThemNH.Image = (Image)resources.GetObject("btnThemNH.Image");
+            btnThemNH.Location = new Point(322, 105);
             btnThemNH.Name = "btnThemNH";
-            btnThemNH.Size = new Size(56, 29);
+            btnThemNH.Size = new Size(41, 29);
             btnThemNH.TabIndex = 11;
-            btnThemNH.Text = "Thêm";
             btnThemNH.UseVisualStyleBackColor = true;
             btnThemNH.Click += btnThemNH_Click;
             // 
@@ -404,7 +404,7 @@
             cboNH.FormattingEnabled = true;
             cboNH.Location = new Point(125, 105);
             cboNH.Name = "cboNH";
-            cboNH.Size = new Size(176, 28);
+            cboNH.Size = new Size(191, 28);
             cboNH.TabIndex = 3;
             // 
             // label3
