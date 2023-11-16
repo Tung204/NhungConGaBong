@@ -1,5 +1,5 @@
 ﻿
-using FSharp.Charting;
+
 
 namespace NhungConGaBong
 {

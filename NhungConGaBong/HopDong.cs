@@ -18,7 +18,7 @@ namespace NhungConGaBong
         public int SoTo { get; set; }
         public int SoThua { get; set; }
         public string DienTich { get; set; }
-        public string TriGia { get; set; }
+        public int TriGia { get; set; }
         public DateTime NgayLap { get; set; }
         // số tờ và số thửa
         public HopDong()
@@ -60,11 +60,12 @@ namespace NhungConGaBong
             this.SoTo = Convert.ToInt32(values[5]);
             this.SoThua = Convert.ToInt32(values[6]);
             this.DienTich = values[7];
-            this.TriGia = values[8];
-            var cultureInfoVietName = new CultureInfo("vi-VN");
+            this.TriGia =Convert.ToInt32( values[8]);
+            //var cultureInfoVietName = new CultureInfo("vi-VN");
 
-            string dateString = values[9];
-            this.NgayLap = DateTime.ParseExact(dateString, "d/M/yyyy", cultureInfoVietName);
+            //string dateString = values[9];
+            //this.NgayLap = DateTime.ParseExact(dateString, "d/M/yyyy", cultureInfoVietName);
+            this.NgayLap = Convert.ToDateTime(values[9]);
         }
 
         public static int SaveToFile(List<HopDong> hdList, string fileName, bool insert = false)
