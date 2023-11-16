@@ -384,9 +384,9 @@
             // btnThemNH
             // 
             btnThemNH.Image = (Image)resources.GetObject("btnThemNH.Image");
-            btnThemNH.Location = new Point(322, 105);
+            btnThemNH.Location = new Point(333, 105);
             btnThemNH.Name = "btnThemNH";
-            btnThemNH.Size = new Size(41, 29);
+            btnThemNH.Size = new Size(30, 29);
             btnThemNH.TabIndex = 11;
             btnThemNH.UseVisualStyleBackColor = true;
             btnThemNH.Click += btnThemNH_Click;
@@ -404,7 +404,7 @@
             cboNH.FormattingEnabled = true;
             cboNH.Location = new Point(125, 105);
             cboNH.Name = "cboNH";
-            cboNH.Size = new Size(191, 28);
+            cboNH.Size = new Size(206, 28);
             cboNH.TabIndex = 3;
             // 
             // label3

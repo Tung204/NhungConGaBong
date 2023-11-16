@@ -25,25 +25,6 @@ namespace NhungConGaBong
             NganHangID = 0;
             MaKH = HoDemKH = TenKH = MaSoThue = DienThoai = Email = STK = "";
         }
-        public KhachHang this[List<KhachHang> khList, int index]
-        {
-            get
-            {
-                if (0 > index || index >= khList.Count)
-                {
-                    throw new IndexOutOfRangeException("Index not valid!!!");
-                    //return null;
-                }
-                else return khList[index];
-            }
-            set
-            {
-                if (index > 0 || index >= khList.Count)
-                    throw new IndexOutOfRangeException("Index not valid!!!");
-                else
-                    khList[index] = value;
-            }
-        }
 
         public KhachHang(string ckhLine)
         {
@@ -58,68 +39,36 @@ namespace NhungConGaBong
             this.NganHangID = Convert.ToInt32(values[7]);
             var cultureInfoVietName = new CultureInfo("vi-VN");
             string dateString = values[8];
-            var date1 = DateTime.ParseExact(dateString, "dd/MM/yyyy", cultureInfoVietName);
-            this.NgayLap = date1;
+            this.NgayLap = DateTime.Parse(dateString);
         }
 
-        public static int SaveToFile(List<KhachHang> khList, string fileName, bool insert = false)
+        public static void SaveToFile(List<KhachHang> khList, string fileName)
         {
             try
             {
-                StreamWriter sw = new StreamWriter(fileName, append: insert);
-                if (!insert)
-                {
-                    string header = "MaKH,HoDem,TenKH,DienThoai,Email,MaSoThue,STK,NganHangID,NgayLap";
-                    //Headers                  
-                    sw.Write(header);
-                    sw.Write(sw.NewLine);
-                }
-                // Lines
+                string[] lines = File.ReadAllLines(fileName);
+                string data = lines[0]+"\n";
                 foreach (var kh in khList)
                 {
-                    string line = "";
-                    line += "," + kh.MaKH;
-                    line += "," + kh.HoDemKH;
-                    line += "," + kh.TenKH;
-                    line += "," + kh.DienThoai;
-                    line += "," + kh.Email;
-                    line += "," + kh.MaSoThue;
-                    line += "," + kh.STK;
-                    line += "," + kh.NganHangID;
-                    line += "," + kh.NgayLap.ToString("dd/MM/yyyy");
-              
-                    line = line.Remove(0, 1);
-                    sw.Write(line);
-                    sw.Write(sw.NewLine);
-                }
-                sw.Close();
-                return 1;
+                    data += kh.ToString() + "\n";
+                } 
+                File.WriteAllText(fileName,data);
             }
-            catch
+            catch (Exception e)
             {
-                return 0;
+                MessageBox.Show("Error: "+e.Message);
             }
         }
 
         public static List<KhachHang> ReadFromFile(string fileName)
         {
-            List<KhachHang> list = new List<KhachHang>();
-            string line = "";
-            using (StreamReader reader = new StreamReader(fileName))
+            List<KhachHang> result = new List<KhachHang>();
+            string[] lines = File.ReadAllLines(fileName).ToArray();
+            foreach (string line in lines.Skip(1))
             {
-
-                if (!reader.EndOfStream) reader.ReadLine();
-
-                while (!reader.EndOfStream)
-                {
-                    line = reader.ReadLine();
-                    KhachHang kh = new KhachHang(line);
-
-                    // Add KhachHang to List
-                    list.Add(kh);
-                }
+                result.Add(new KhachHang(line));
             }
-            return list;
+            return result;
         }
 
         public static DataTable ToDataTable(List<KhachHang> khList)
@@ -154,10 +103,12 @@ namespace NhungConGaBong
             {
                 return input.OrderByDescending(p => p.GetType().GetProperty(property).GetValue(p, null)).ToList();
             }
-            else
-            {
-                return input.OrderBy(p => p.GetType().GetProperty(property).GetValue(p, null)).ToList();
-            }
+            return input.OrderBy(p => p.GetType().GetProperty(property).GetValue(p, null)).ToList();
+        }
+
+        public override string ToString()
+        {
+            return $"{MaKH},{HoDemKH},{TenKH},{DienThoai},{Email},{MaSoThue},{STK},{NganHangID},{NgayLap.ToString("MM/dd/yyyy")}";
         }
 
     }

@@ -43,8 +43,17 @@ namespace NhungConGaBong
 
             khList.Clear();
             gpbThongTin.Hide();
-            maxMakh = khachhangList.Max(kh => int.Parse(kh.MaKH.Substring(2)));
-            txtMaKH.Text = "KH" + (maxMakh + 1).ToString("D2");
+            if (khachhangList.Count == 0)
+            {
+                Random random = new Random();
+                maxMakh = random.Next(100000000, 999999999);
+                txtMaKH.Text = "KH" + maxMakh.ToString("D2");
+            }
+            else
+            {
+                maxMakh = khachhangList.Select(kh => Convert.ToInt32(kh.MaKH)).Max();
+                txtMaKH.Text = "KH" + (maxMakh + 1).ToString("D2");
+            }
         }
 
         private void btnThem_Click(object sender, EventArgs e)
@@ -77,7 +86,7 @@ namespace NhungConGaBong
         {
             string _Path = AppDomain.CurrentDomain.BaseDirectory;
             string fileName = _Path + @"\FileKhachHang.csv";
-            KhachHang.SaveToFile(khList, fileName, true);
+            KhachHang.SaveToFile(khList, fileName);
         }
 
         private void btnSua_Click(object sender, EventArgs e)
@@ -92,7 +101,7 @@ namespace NhungConGaBong
             string stk = txtSoTK.Text;
             int nganHangID = Convert.ToInt32(cboNH.SelectedValue);
 
-            KhachHang khachHang = khList.FirstOrDefault(kh => kh.MaKH == maKH);
+             KhachHang khachHang = khList.FirstOrDefault(kh => kh.MaKH == maKH);
 
             if (khachHang != null)
             {
@@ -212,7 +221,7 @@ namespace NhungConGaBong
                     khachhangList.RemoveAt(selectedIndex);
                     string _Path = AppDomain.CurrentDomain.BaseDirectory;
                     string fileName = _Path + @"\FileKhachHang.csv";
-                    KhachHang.SaveToFile(khachhangList, fileName, false);
+                    KhachHang.SaveToFile(khachhangList, fileName);
                     dgvXuatKH.DataSource = null;
                     btnXuatDS.PerformClick();
                     dgvXuatKH.AutoGenerateColumns = true;

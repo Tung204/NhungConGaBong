@@ -1,4 +1,6 @@
 ﻿
+using FSharp.Charting;
+
 namespace NhungConGaBong
 {
     public partial class frmQLKH : Form
@@ -19,6 +21,11 @@ namespace NhungConGaBong
         }
 
         private void mnuKhachHang_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
         {
 
         }

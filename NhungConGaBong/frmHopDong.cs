@@ -15,6 +15,7 @@ namespace NhungConGaBong
     public partial class frmHopDong : Form
     {
         List<HopDong> hdList = new List<HopDong>();
+        List<HopDong> hopdongList = new List<HopDong>();
         List<NhanVien> nvList = new List<NhanVien>();
         List<KhachHang> khList = new List<KhachHang>();
         public int selectedIndex;
@@ -38,7 +39,7 @@ namespace NhungConGaBong
             khList = KhachHang.ReadFromFile(fileName);
             cboKhachHang.DataSource = khList;
             cboKhachHang.DisplayMember = "MaKH";
-            cboKhachHang.SelectedIndex = 0;
+            cboKhachHang.SelectedIndex = -1;
             fileName = path + @"FileNhanVien.csv";
             nvList = NhanVien.ReadFromFile(fileName);
             cboNhanVien.DataSource = nvList;
@@ -366,9 +367,20 @@ namespace NhungConGaBong
             dgvHopDongview.AutoGenerateColumns = false;
             string _Path = AppDomain.CurrentDomain.BaseDirectory;
             string fileName = _Path + @"\FileHopDong.csv";
-            hdList = HopDong.ReadFromFile(fileName);
-
-            dgvHopDongview.DataSource = hdList;
+            hopdongList = HopDong.ReadFromFile(fileName);
+           
+            var results = from hd in hopdongList
+                          join nv in nvList on hd.MaNV equals nv.MaNV
+                          select new
+                          { hd.MaHD, nv.MaNV, nv.Ten, hd.TenHD, hd.LoaiDat,hd.DienTich,
+                            hd.TriGia, hd.SoTo, hd.SoThua, hd.NgayLap, hd.MaKH
+                          } into ind
+                          join kh in khList on ind.MaKH equals kh.MaKH
+                          select new 
+                          {
+                              ind.MaHD, ind.MaNV, ind.MaKH,kh.TenKH, ind.TenHD, ind.LoaiDat, ind.DienTich, ind.TriGia, ind.SoTo, ind.SoThua, ind.NgayLap
+                          };
+            dgvHopDongview.DataSource = results.ToList();
             dgvHopDongview.AutoGenerateColumns = true;
         }
         private void SearchAll(string text)
