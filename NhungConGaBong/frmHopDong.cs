@@ -21,13 +21,21 @@ namespace NhungConGaBong
         public int selectedIndex;
         public string MaNhanVien = "";
         public string MaKhachHang = "";
+        public string tennv = "";
+        public string tenkh = "";
         public frmHopDong()
         {
             InitializeComponent();
             dgvDanhSachHD.RowsDefaultCellStyle.BackColor = Color.MintCream;
             dgvDanhSachHD.AlternatingRowsDefaultCellStyle.BackColor = Color.OldLace;
-            dgvHopDongview.RowsDefaultCellStyle.BackColor = Color.AliceBlue;
-            dgvHopDongview.AlternatingRowsDefaultCellStyle.BackColor = Color.CornflowerBlue;
+            dgvHopDongview.RowsDefaultCellStyle.BackColor = Color.FromArgb(210, 230, 255);
+            dgvHopDongview.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(240, 240, 240);
+            dgvNhanVienView.RowsDefaultCellStyle.BackColor = Color.FromArgb(255, 200, 220); // Màu hồng nhạt
+            dgvNhanVienView.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(220, 255, 200); // Màu xanh lá cây nhạt
+            dgvKhachHangView.RowsDefaultCellStyle.BackColor = Color.FromArgb(255, 230, 200); // Màu cam nhạt
+            dgvKhachHangView.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(230, 200, 255); // Màu tím nhạt
+
+
         }
 
         public void frmHopDong_Load(object sender, EventArgs e)
@@ -49,6 +57,7 @@ namespace NhungConGaBong
             btnLuu.Enabled = false;
             btnXoa.Enabled = false;
             dtpNgayLap.Value = DateTime.Now;
+
 
 
             dgvNhanVienView.AutoGenerateColumns = false;
@@ -260,6 +269,10 @@ namespace NhungConGaBong
             string _Path = AppDomain.CurrentDomain.BaseDirectory;
             string fileName = _Path + @"\FileHopDong.csv";
             HopDong.SaveToFile(hdList, fileName, true);
+            dgvDanhSachHD.AutoGenerateColumns = false;
+            hdList.Clear();
+            dgvDanhSachHD.DataSource = null;
+            dgvDanhSachHD.AutoGenerateColumns = true;
         }
         private void btnXoa_Click(object sender, EventArgs e)
         {
@@ -292,6 +305,8 @@ namespace NhungConGaBong
             HopDong hopDong = hdList.FirstOrDefault(hd => hd.MaHD == txtMaHD.Text);
             if (index >= 0)
             {
+                hdList[index].MaNV = MaNhanVien;
+                hdList[index].MaKH = MaKhachHang;
                 dgvDanhSachHD.AutoGenerateColumns = false;
                 hdList[index].TenHD = cboHopDong.Text;
 
@@ -320,8 +335,8 @@ namespace NhungConGaBong
                 DataGridViewRow selectedRow = dgvDanhSachHD.Rows[e.RowIndex];
 
                 txtMaHD.Text = selectedRow.Cells["MaHD"].Value.ToString();
-                //textBox1.Text = selectedRow.Cells["MaNV"].Value.ToString();
-                //cboKhachHang.Text = selectedRow.Cells["MaKH"].Value.ToString();
+                txtTenNhanVien.Text = tennv;
+                txtTenKhachHang.Text = tenkh;
 
                 cboHopDong.Text = selectedRow.Cells["TenHD"].Value.ToString();
                 txtDienTich.Text = selectedRow.Cells["DienTich"].Value.ToString();
@@ -360,31 +375,6 @@ namespace NhungConGaBong
             }
 
         }
-        //private void cboKhachHang_SelectedIndexChanged(object sender, EventArgs e)
-        //{
-        //    cboKhachHang.ValueMember = "HoDemKH";
-        //    if (cboKhachHang.SelectedIndex >= 0)
-        //    {
-        //        lblKhachHang.Text = cboKhachHang.SelectedValue.ToString();
-        //        cboKhachHang.ValueMember = "TenKH";
-        //        lblKhachHang.Text += " " + cboKhachHang.SelectedValue.ToString();
-        //    }
-        //    else
-        //        lblKhachHang.Text = "";
-        //}
-        //private void cboNhanVien_SelectedIndexChanged(object sender, EventArgs e)
-        //{
-        //    cboNhanVien.ValueMember = "HoDem";
-        //    if (cboNhanVien.SelectedIndex >= 0)
-        //    {
-        //        lblNhanVien.Text = cboNhanVien.SelectedValue.ToString();
-        //        cboNhanVien.ValueMember = "Ten";
-        //        lblNhanVien.Text += " " + cboNhanVien.SelectedValue.ToString();
-        //    }
-        //    else
-        //        lblNhanVien.Text = "";
-        //}
-
         private void btnXuat_Click(object sender, EventArgs e)
         {
             dgvHopDongview.AutoGenerateColumns = false;
@@ -398,6 +388,7 @@ namespace NhungConGaBong
                           {
                               hd.MaHD,
                               nv.MaNV,
+                              nv.HoDem,
                               nv.Ten,
                               hd.TenHD,
                               hd.LoaiDat,
@@ -413,7 +404,9 @@ namespace NhungConGaBong
                           {
                               ind.MaHD,
                               ind.MaNV,
+                              hotennv = ind.HoDem + " " + ind.Ten,
                               ind.MaKH,
+                              hotenkh = kh.HoDemKH + " " + kh.TenKH,
                               ind.TenHD,
                               ind.LoaiDat,
                               ind.DienTich,
@@ -428,10 +421,45 @@ namespace NhungConGaBong
         private void SearchAll(string text)
         {
             text = text.ToUpper();
-            var filtered = from hd in hdList
-                           where hd.MaHD.ToUpper().Contains(text) //|| hd.MaNV.ToUpper().Contains(text) || hd.MaKH.ToUpper().Contains(text)
-                           select hd;
-            dgvHopDongview.DataSource = filtered.ToList();
+            var results = from hd in hopdongList
+                              join nv in nvList on hd.MaNV equals nv.MaNV
+                              select new
+                              {
+                                  hd.MaHD,
+                                  nv.MaNV,
+                                  nv.HoDem,
+                                  nv.Ten,
+                                  hd.TenHD,
+                                  hd.LoaiDat,
+                                  hd.DienTich,
+                                  hd.TriGia,
+                                  hd.SoTo,
+                                  hd.SoThua,
+                                  hd.NgayLap,
+                                  hd.MaKH
+                              } into ind
+                              join kh in khList on ind.MaKH equals kh.MaKH
+                              where ind.MaNV.ToUpper().Contains(text) || ind.MaHD.ToUpper().Contains(text) || kh.MaKH.ToUpper().Contains(text)||
+                                    ind.HoDem.ToUpper().Contains(text)|| ind.Ten.ToUpper().Contains(text) ||
+                                    ind.TenHD.ToUpper().Contains(text)||
+                                    kh.TenKH.ToUpper().Contains(text) || kh.HoDemKH.ToUpper().Contains(text)    
+
+                              select new
+                              {
+                                  ind.MaHD,
+                                  ind.MaNV,
+                                  hotennv = ind.HoDem + " " + ind.Ten,
+                                  ind.MaKH,
+                                  hotenkh = kh.HoDemKH + " " + kh.TenKH,
+                                  ind.TenHD,
+                                  ind.LoaiDat,
+                                  ind.DienTich,
+                                  ind.TriGia,
+                                  ind.SoTo,
+                                  ind.SoThua,
+                                  ind.NgayLap
+                              };
+            dgvHopDongview.DataSource = results.ToList();
 
         }
         private void txtNhap_TextChanged(object sender, EventArgs e)
@@ -440,11 +468,76 @@ namespace NhungConGaBong
             SearchAll(text);
         }
 
+
+
+        private void btnXoaDS_Click(object sender, EventArgs e)
+        {
+            dgvHopDongview.AutoGenerateColumns = false;
+            int selectedIndex = dgvHopDongview.SelectedCells[0].RowIndex;
+            if (selectedIndex >= 0)
+            {
+                DialogResult result = MessageBox.Show("Bạn có chắc chắn muốn xoá hợp đồng này?", "Xác nhận xoá", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (result == DialogResult.Yes)
+                {
+                    hopdongList.RemoveAt(selectedIndex);
+                    string _Path = AppDomain.CurrentDomain.BaseDirectory;
+                    string fileName = _Path + @"\FileHopDong.csv";
+                    HopDong.SaveToFile(hopdongList, fileName, false);
+                    dgvHopDongview.DataSource = null;
+                    btnXuat.PerformClick();
+                    dgvHopDongview.AutoGenerateColumns = true;
+                }
+            }
+        }
+
+
+        public void dgvNhanVienView_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                DataGridViewRow row = dgvNhanVienView.Rows[e.RowIndex];
+
+                MaNhanVien = row.Cells["mnvName"].Value.ToString();
+                txtTenNhanVien.Text = $"{row.Cells["HoDem"].Value} {row.Cells["Ten"].Value}";
+                tennv = txtTenNhanVien.Text;
+            }
+        }
+
+        public void dgvKhachHangView_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                DataGridViewRow row = dgvKhachHangView.Rows[e.RowIndex];
+
+                MaKhachHang = row.Cells["makhachang"].Value.ToString();
+                // Lấy thông tin từ cột cụ thể và hiển thị nó trong TextBox
+                txtTenKhachHang.Text = $"{row.Cells["HoDemKH"].Value} {row.Cells["TenKH"].Value}";
+                tenkh = txtTenKhachHang.Text;
+            }
+        }
+
+        private void dgvDanhSachHD_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void dgvNhanVienView_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
+        {
+            SacDataGridView.SetRowNumber(sender, e);
+        }
         private void dgvDanhSachHD_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
         {
             SacDataGridView.SetRowNumber(sender, e);
         }
+        private void dgvKhachHangView_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
+        {
+            SacDataGridView.SetRowNumber(sender, e);
 
+        }
+        private void dgvHopDongview_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
+        {
+            SacDataGridView.SetRowNumber(sender, e);
+        }
         private void txtDienTich_KeyPress(object sender, KeyPressEventArgs e)
         {
             Input.SoThuc(txtDienTich, e);
@@ -464,49 +557,35 @@ namespace NhungConGaBong
         {
             Input.SoNguyen(txtSoThua, e);
         }
-
-        private void btnXoaDS_Click(object sender, EventArgs e)
+        private void SearchNhanVien(string text)
         {
-            dgvHopDongview.AutoGenerateColumns = false;
-            int selectedIndex = dgvHopDongview.SelectedCells[0].RowIndex;
-            if (selectedIndex >= 0)
-            {
-                DialogResult result = MessageBox.Show("Bạn có chắc chắn muốn xoá hợp đồng này?", "Xác nhận xoá", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                if (result == DialogResult.Yes)
-                {
-                    hdList.RemoveAt(selectedIndex);
-                    string _Path = AppDomain.CurrentDomain.BaseDirectory;
-                    string fileName = _Path + @"\FileHopDong.csv";
-                    HopDong.SaveToFile(hdList, fileName, false);
-                    dgvHopDongview.DataSource = null;
-                    btnXuat.PerformClick();
-                    dgvHopDongview.AutoGenerateColumns = true;
-                }
-            }
+            text = text.ToUpper();
+            var filtered = from nv in nvList
+                           where nv.MaNV.ToUpper().Contains(text) || nv.HoDem.ToUpper().Contains(text) || nv.Ten.ToUpper().Contains(text) //|| hd.MaNV.ToUpper().Contains(text) || hd.MaKH.ToUpper().Contains(text)
+                           select nv;
+            dgvNhanVienView.DataSource = filtered.ToList();
+
+        }
+        private void txtTimNhanVien_TextChanged(object sender, EventArgs e)
+        {
+            string text = txtTimNhanVien.Text.Trim();
+            SearchNhanVien(text);
+        }
+        private void SearchKhachHang
+            (string text)
+        {
+            text = text.ToUpper();
+            var filtered = from kh in khList
+                           where kh.MaKH.ToUpper().Contains(text) || kh.HoDemKH.ToUpper().Contains(text) || kh.TenKH.ToUpper().Contains(text) //|| hd.MaNV.ToUpper().Contains(text) || hd.MaKH.ToUpper().Contains(text)
+                           select kh;
+            dgvKhachHangView.DataSource = filtered.ToList();
+
         }
 
-
-        public void dgvNhanVienView_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void txtTimKhachHang_TextChanged(object sender, EventArgs e)
         {
-            if (e.RowIndex >= 0)
-            {
-                DataGridViewRow row = dgvNhanVienView.Rows[e.RowIndex];
-
-                MaNhanVien = row.Cells["mnvName"].Value.ToString();
-                txtTenNhanVien.Text = $"{row.Cells["HoDem"].Value} {row.Cells["Ten"].Value}";
-            }
-        }
-
-        public void dgvKhachHangView_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex >= 0)
-            {
-                DataGridViewRow row = dgvKhachHangView.Rows[e.RowIndex];
-
-                 MaKhachHang = row.Cells["makhachang"].Value.ToString();
-                // Lấy thông tin từ cột cụ thể và hiển thị nó trong TextBox
-                txtTenKhachHang.Text = $"{row.Cells["HoDemKH"].Value} {row.Cells["TenKH"].Value}";
-            }
+            string text = txtTimKhachHang.Text.Trim();
+            SearchKhachHang(text);
         }
     }
 }

@@ -61,11 +61,11 @@ namespace NhungConGaBong
             this.SoThua = Convert.ToInt32(values[6]);
             this.DienTich = values[7];
             this.TriGia =Convert.ToInt32( values[8]);
-            //var cultureInfoVietName = new CultureInfo("vi-VN");
+            var cultureInfoVietName = new CultureInfo("vi-VN");
 
-            //string dateString = values[9];
-            //this.NgayLap = DateTime.ParseExact(dateString, "d/M/yyyy", cultureInfoVietName);
-            this.NgayLap = Convert.ToDateTime(values[9]);
+            string dateString = values[9];
+            this.NgayLap = DateTime.ParseExact(dateString, "d/M/yyyy", cultureInfoVietName);
+            //this.NgayLap = Convert.ToDateTime(values[9]);
         }
 
         public static int SaveToFile(List<HopDong> hdList, string fileName, bool insert = false)
