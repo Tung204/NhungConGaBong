@@ -42,6 +42,7 @@
             masothue = new DataGridViewTextBoxColumn();
             stk = new DataGridViewTextBoxColumn();
             nganhangid = new DataGridViewTextBoxColumn();
+            ngLap = new DataGridViewTextBoxColumn();
             gpbThongTin = new GroupBox();
             btnDong = new Button();
             panel2 = new Panel();
@@ -81,11 +82,15 @@
             dataGridViewTextBoxColumn6 = new DataGridViewTextBoxColumn();
             dataGridViewTextBoxColumn7 = new DataGridViewTextBoxColumn();
             nh = new DataGridViewTextBoxColumn();
+            ID = new DataGridViewTextBoxColumn();
+            Ngaylap = new DataGridViewTextBoxColumn();
             panel4 = new Panel();
+            cboTimNganHang = new ComboBox();
             btnXoaDS = new Button();
             btnXuatDS = new Button();
             label9 = new Label();
             txtTim = new TextBox();
+            btnBackup = new Button();
             tbcKhachHang.SuspendLayout();
             tbpThemKH.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
@@ -111,6 +116,7 @@
             tbcKhachHang.SelectedIndex = 0;
             tbcKhachHang.Size = new Size(1452, 659);
             tbcKhachHang.TabIndex = 0;
+            tbcKhachHang.TabStop = false;
             // 
             // tbpThemKH
             // 
@@ -155,7 +161,7 @@
             dgvKhachHang.AllowUserToAddRows = false;
             dgvKhachHang.AllowUserToDeleteRows = false;
             dgvKhachHang.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvKhachHang.Columns.AddRange(new DataGridViewColumn[] { makh, hodem, tenKH, Dienthoai, email, masothue, stk, nganhangid });
+            dgvKhachHang.Columns.AddRange(new DataGridViewColumn[] { makh, hodem, tenKH, Dienthoai, email, masothue, stk, nganhangid, ngLap });
             dgvKhachHang.Dock = DockStyle.Fill;
             dgvKhachHang.Location = new Point(396, 0);
             dgvKhachHang.Name = "dgvKhachHang";
@@ -164,6 +170,7 @@
             dgvKhachHang.RowTemplate.Height = 29;
             dgvKhachHang.Size = new Size(1036, 557);
             dgvKhachHang.TabIndex = 20;
+            dgvKhachHang.TabStop = false;
             dgvKhachHang.CellClick += dgvKhachHang_CellClick;
             dgvKhachHang.RowPostPaint += dgvKhachHang_RowPostPaint;
             // 
@@ -179,73 +186,76 @@
             // 
             // hodem
             // 
-            hodem.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            hodem.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             hodem.DataPropertyName = "HoDemKH";
             hodem.HeaderText = "Họ khách hàng";
             hodem.MinimumWidth = 6;
             hodem.Name = "hodem";
             hodem.ReadOnly = true;
-            hodem.Width = 137;
             // 
             // tenKH
             // 
-            tenKH.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            tenKH.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             tenKH.DataPropertyName = "TenKH";
             tenKH.HeaderText = "Tên khách hàng";
             tenKH.MinimumWidth = 6;
             tenKH.Name = "tenKH";
             tenKH.ReadOnly = true;
-            tenKH.Width = 140;
             // 
             // Dienthoai
             // 
-            Dienthoai.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            Dienthoai.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             Dienthoai.DataPropertyName = "DienThoai";
             Dienthoai.HeaderText = "Số điện thoại";
             Dienthoai.MinimumWidth = 6;
             Dienthoai.Name = "Dienthoai";
             Dienthoai.ReadOnly = true;
-            Dienthoai.Width = 126;
             // 
             // email
             // 
-            email.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            email.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             email.DataPropertyName = "Email";
             email.HeaderText = "Email";
             email.MinimumWidth = 6;
             email.Name = "email";
             email.ReadOnly = true;
-            email.Width = 75;
             // 
             // masothue
             // 
-            masothue.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            masothue.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             masothue.DataPropertyName = "MaSoThue";
             masothue.HeaderText = "Mã số thuế";
             masothue.MinimumWidth = 6;
             masothue.Name = "masothue";
             masothue.ReadOnly = true;
-            masothue.Width = 111;
             // 
             // stk
             // 
-            stk.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            stk.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             stk.DataPropertyName = "STK";
             stk.HeaderText = "Số tài khoản";
             stk.MinimumWidth = 6;
             stk.Name = "stk";
             stk.ReadOnly = true;
-            stk.Width = 120;
             // 
             // nganhangid
             // 
-            nganhangid.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            nganhangid.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             nganhangid.DataPropertyName = "NganHangID";
             nganhangid.HeaderText = "Ngân hàng ID";
             nganhangid.MinimumWidth = 6;
             nganhangid.Name = "nganhangid";
             nganhangid.ReadOnly = true;
-            nganhangid.Width = 130;
+            // 
+            // ngLap
+            // 
+            ngLap.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            ngLap.DataPropertyName = "NgayLap";
+            ngLap.HeaderText = "Ngày lập";
+            ngLap.MinimumWidth = 6;
+            ngLap.Name = "ngLap";
+            ngLap.ReadOnly = true;
+            ngLap.Width = 125;
             // 
             // gpbThongTin
             // 
@@ -269,7 +279,7 @@
             btnDong.Location = new Point(200, 339);
             btnDong.Name = "btnDong";
             btnDong.Size = new Size(184, 29);
-            btnDong.TabIndex = 1;
+            btnDong.TabIndex = 5;
             btnDong.Text = "Đóng";
             btnDong.UseVisualStyleBackColor = true;
             btnDong.Click += btnDong_Click;
@@ -287,7 +297,7 @@
             panel2.Location = new Point(11, 22);
             panel2.Name = "panel2";
             panel2.Size = new Size(374, 147);
-            panel2.TabIndex = 22;
+            panel2.TabIndex = 1;
             // 
             // txtHoDem
             // 
@@ -312,6 +322,7 @@
             txtMaKH.ReadOnly = true;
             txtMaKH.Size = new Size(238, 27);
             txtMaKH.TabIndex = 0;
+            txtMaKH.TabStop = false;
             // 
             // label8
             // 
@@ -344,6 +355,7 @@
             txtSDT.Name = "txtSDT";
             txtSDT.Size = new Size(238, 27);
             txtSDT.TabIndex = 3;
+            txtSDT.KeyPress += txtSDT_KeyPress;
             // 
             // label4
             // 
@@ -360,7 +372,7 @@
             btnSua.Location = new Point(11, 339);
             btnSua.Name = "btnSua";
             btnSua.Size = new Size(183, 29);
-            btnSua.TabIndex = 0;
+            btnSua.TabIndex = 4;
             btnSua.Text = "Lưu";
             btnSua.UseVisualStyleBackColor = true;
             btnSua.Click += btnSua_Click;
@@ -379,7 +391,7 @@
             panel1.Location = new Point(11, 176);
             panel1.Name = "panel1";
             panel1.Size = new Size(374, 146);
-            panel1.TabIndex = 21;
+            panel1.TabIndex = 2;
             // 
             // btnThemNH
             // 
@@ -387,7 +399,7 @@
             btnThemNH.Location = new Point(333, 105);
             btnThemNH.Name = "btnThemNH";
             btnThemNH.Size = new Size(30, 29);
-            btnThemNH.TabIndex = 11;
+            btnThemNH.TabIndex = 9;
             btnThemNH.UseVisualStyleBackColor = true;
             btnThemNH.Click += btnThemNH_Click;
             // 
@@ -397,6 +409,7 @@
             txtSoTK.Name = "txtSoTK";
             txtSoTK.Size = new Size(238, 27);
             txtSoTK.TabIndex = 2;
+            txtSoTK.KeyPress += txtSoTK_KeyPress;
             // 
             // cboNH
             // 
@@ -422,6 +435,7 @@
             txtMaSoThue.Name = "txtMaSoThue";
             txtMaSoThue.Size = new Size(238, 27);
             txtMaSoThue.TabIndex = 1;
+            txtMaSoThue.KeyPress += txtMaSoThue_KeyPress;
             // 
             // label5
             // 
@@ -438,6 +452,7 @@
             txtEmail.Name = "txtEmail";
             txtEmail.Size = new Size(238, 27);
             txtEmail.TabIndex = 0;
+            txtEmail.Tag = "";
             // 
             // label7
             // 
@@ -511,7 +526,7 @@
             btnLuu.Location = new Point(302, 5);
             btnLuu.Name = "btnLuu";
             btnLuu.Size = new Size(94, 29);
-            btnLuu.TabIndex = 3;
+            btnLuu.TabIndex = 1;
             btnLuu.Text = "Lưu";
             btnLuu.UseVisualStyleBackColor = true;
             btnLuu.Click += btnLuu_Click;
@@ -524,7 +539,7 @@
             btnXoa.Location = new Point(202, 5);
             btnXoa.Name = "btnXoa";
             btnXoa.Size = new Size(94, 29);
-            btnXoa.TabIndex = 2;
+            btnXoa.TabIndex = 1;
             btnXoa.Text = "Xoá";
             btnXoa.UseVisualStyleBackColor = true;
             btnXoa.Click += btnXoa_Click;
@@ -558,15 +573,20 @@
             // 
             // dgvXuatKH
             // 
+            dgvXuatKH.AllowUserToAddRows = false;
+            dgvXuatKH.AllowUserToDeleteRows = false;
             dgvXuatKH.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvXuatKH.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn1, dataGridViewTextBoxColumn2, dataGridViewTextBoxColumn3, dataGridViewTextBoxColumn4, dataGridViewTextBoxColumn5, dataGridViewTextBoxColumn6, dataGridViewTextBoxColumn7, nh });
+            dgvXuatKH.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn1, dataGridViewTextBoxColumn2, dataGridViewTextBoxColumn3, dataGridViewTextBoxColumn4, dataGridViewTextBoxColumn5, dataGridViewTextBoxColumn6, dataGridViewTextBoxColumn7, nh, ID, Ngaylap });
             dgvXuatKH.Dock = DockStyle.Fill;
             dgvXuatKH.Location = new Point(3, 50);
             dgvXuatKH.Name = "dgvXuatKH";
+            dgvXuatKH.ReadOnly = true;
             dgvXuatKH.RowHeadersWidth = 51;
             dgvXuatKH.RowTemplate.Height = 29;
             dgvXuatKH.Size = new Size(1432, 567);
             dgvXuatKH.TabIndex = 21;
+            dgvXuatKH.ColumnHeaderMouseClick += dgvXuatKH_ColumnHeaderMouseClick;
+            dgvXuatKH.RowPostPaint += dgvXuatKH_RowPostPaint;
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -575,73 +595,95 @@
             dataGridViewTextBoxColumn1.HeaderText = "Mã khách hàng";
             dataGridViewTextBoxColumn1.MinimumWidth = 6;
             dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            dataGridViewTextBoxColumn1.ReadOnly = true;
             dataGridViewTextBoxColumn1.Width = 138;
             // 
             // dataGridViewTextBoxColumn2
             // 
-            dataGridViewTextBoxColumn2.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewTextBoxColumn2.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dataGridViewTextBoxColumn2.DataPropertyName = "HoDemKH";
             dataGridViewTextBoxColumn2.HeaderText = "Họ khách hàng";
             dataGridViewTextBoxColumn2.MinimumWidth = 6;
             dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            dataGridViewTextBoxColumn2.Width = 137;
+            dataGridViewTextBoxColumn2.ReadOnly = true;
             // 
             // dataGridViewTextBoxColumn3
             // 
-            dataGridViewTextBoxColumn3.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewTextBoxColumn3.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dataGridViewTextBoxColumn3.DataPropertyName = "TenKH";
             dataGridViewTextBoxColumn3.HeaderText = "Tên khách hàng";
             dataGridViewTextBoxColumn3.MinimumWidth = 6;
             dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            dataGridViewTextBoxColumn3.Width = 140;
+            dataGridViewTextBoxColumn3.ReadOnly = true;
             // 
             // dataGridViewTextBoxColumn4
             // 
-            dataGridViewTextBoxColumn4.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewTextBoxColumn4.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dataGridViewTextBoxColumn4.DataPropertyName = "DienThoai";
             dataGridViewTextBoxColumn4.HeaderText = "Số điện thoại";
             dataGridViewTextBoxColumn4.MinimumWidth = 6;
             dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            dataGridViewTextBoxColumn4.Width = 126;
+            dataGridViewTextBoxColumn4.ReadOnly = true;
             // 
             // dataGridViewTextBoxColumn5
             // 
-            dataGridViewTextBoxColumn5.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewTextBoxColumn5.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dataGridViewTextBoxColumn5.DataPropertyName = "Email";
             dataGridViewTextBoxColumn5.HeaderText = "Email";
             dataGridViewTextBoxColumn5.MinimumWidth = 6;
             dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
-            dataGridViewTextBoxColumn5.Width = 75;
+            dataGridViewTextBoxColumn5.ReadOnly = true;
             // 
             // dataGridViewTextBoxColumn6
             // 
-            dataGridViewTextBoxColumn6.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewTextBoxColumn6.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dataGridViewTextBoxColumn6.DataPropertyName = "MaSoThue";
             dataGridViewTextBoxColumn6.HeaderText = "Mã số thuế";
             dataGridViewTextBoxColumn6.MinimumWidth = 6;
             dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
-            dataGridViewTextBoxColumn6.Width = 111;
+            dataGridViewTextBoxColumn6.ReadOnly = true;
             // 
             // dataGridViewTextBoxColumn7
             // 
-            dataGridViewTextBoxColumn7.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewTextBoxColumn7.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dataGridViewTextBoxColumn7.DataPropertyName = "STK";
             dataGridViewTextBoxColumn7.HeaderText = "Số tài khoản";
             dataGridViewTextBoxColumn7.MinimumWidth = 6;
             dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
-            dataGridViewTextBoxColumn7.Width = 120;
+            dataGridViewTextBoxColumn7.ReadOnly = true;
             // 
             // nh
             // 
-            nh.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            nh.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             nh.DataPropertyName = "nghang";
             nh.HeaderText = "Ngân hàng";
             nh.MinimumWidth = 6;
             nh.Name = "nh";
-            nh.Width = 111;
+            nh.ReadOnly = true;
+            // 
+            // ID
+            // 
+            ID.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            ID.DataPropertyName = "NganHangID";
+            ID.HeaderText = "Ngân hàng ID";
+            ID.MinimumWidth = 6;
+            ID.Name = "ID";
+            ID.ReadOnly = true;
+            // 
+            // Ngaylap
+            // 
+            Ngaylap.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            Ngaylap.DataPropertyName = "NgayLap";
+            Ngaylap.HeaderText = "Ngày lập";
+            Ngaylap.MinimumWidth = 6;
+            Ngaylap.Name = "Ngaylap";
+            Ngaylap.ReadOnly = true;
+            Ngaylap.Width = 98;
             // 
             // panel4
             // 
+            panel4.Controls.Add(btnBackup);
+            panel4.Controls.Add(cboTimNganHang);
             panel4.Controls.Add(btnXoaDS);
             panel4.Controls.Add(btnXuatDS);
             panel4.Controls.Add(label9);
@@ -652,9 +694,18 @@
             panel4.Size = new Size(1432, 41);
             panel4.TabIndex = 25;
             // 
+            // cboTimNganHang
+            // 
+            cboTimNganHang.FormattingEnabled = true;
+            cboTimNganHang.Location = new Point(1259, 8);
+            cboTimNganHang.Name = "cboTimNganHang";
+            cboTimNganHang.Size = new Size(166, 28);
+            cboTimNganHang.TabIndex = 26;
+            cboTimNganHang.SelectionChangeCommitted += cboTimNganHang_SelectionChangeCommitted;
+            // 
             // btnXoaDS
             // 
-            btnXoaDS.Location = new Point(1324, 8);
+            btnXoaDS.Location = new Point(251, 7);
             btnXoaDS.Name = "btnXoaDS";
             btnXoaDS.Size = new Size(94, 29);
             btnXoaDS.TabIndex = 25;
@@ -664,7 +715,7 @@
             // 
             // btnXuatDS
             // 
-            btnXuatDS.Location = new Point(3, 13);
+            btnXuatDS.Location = new Point(3, 8);
             btnXuatDS.Name = "btnXuatDS";
             btnXuatDS.Size = new Size(142, 29);
             btnXuatDS.TabIndex = 22;
@@ -675,7 +726,7 @@
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new Point(173, 17);
+            label9.Location = new Point(913, 12);
             label9.Name = "label9";
             label9.Size = new Size(70, 20);
             label9.TabIndex = 23;
@@ -683,11 +734,21 @@
             // 
             // txtTim
             // 
-            txtTim.Location = new Point(249, 13);
+            txtTim.Location = new Point(989, 8);
             txtTim.Name = "txtTim";
             txtTim.Size = new Size(264, 27);
             txtTim.TabIndex = 24;
             txtTim.TextChanged += txtTim_TextChanged;
+            // 
+            // btnBackup
+            // 
+            btnBackup.Location = new Point(151, 8);
+            btnBackup.Name = "btnBackup";
+            btnBackup.Size = new Size(94, 29);
+            btnBackup.TabIndex = 27;
+            btnBackup.Text = "Backup";
+            btnBackup.UseVisualStyleBackColor = true;
+            btnBackup.Click += btnBackup_Click;
             // 
             // frmKhachHang
             // 
@@ -759,6 +820,9 @@
         private Panel panel5;
         private TableLayoutPanel tableLayoutPanel2;
         private GroupBox gpbThongTin;
+        private Button btnXoaDS;
+        private Button btnThemNH;
+        private ComboBox cboTimNganHang;
         private DataGridViewTextBoxColumn makh;
         private DataGridViewTextBoxColumn hodem;
         private DataGridViewTextBoxColumn tenKH;
@@ -767,6 +831,7 @@
         private DataGridViewTextBoxColumn masothue;
         private DataGridViewTextBoxColumn stk;
         private DataGridViewTextBoxColumn nganhangid;
+        private DataGridViewTextBoxColumn ngLap;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
@@ -775,7 +840,8 @@
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
         private DataGridViewTextBoxColumn nh;
-        private Button btnXoaDS;
-        private Button btnThemNH;
+        private DataGridViewTextBoxColumn ID;
+        private DataGridViewTextBoxColumn Ngaylap;
+        private Button btnBackup;
     }
 }

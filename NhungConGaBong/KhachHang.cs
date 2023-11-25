@@ -32,9 +32,9 @@ namespace NhungConGaBong
             this.MaKH = values[0];
             this.HoDemKH = values[1];
             this.TenKH = values[2];
-            this.MaSoThue = values[3];
-            this.DienThoai = values[4];
-            this.Email = values[5];
+            this.DienThoai = values[3];
+            this.Email = values[4];
+            this.MaSoThue = values[5];
             this.STK = values[6];
             this.NganHangID = Convert.ToInt32(values[7]);
             var cultureInfoVietName = new CultureInfo("vi-VN");
@@ -42,17 +42,40 @@ namespace NhungConGaBong
             this.NgayLap = DateTime.Parse(dateString);
         }
 
-        public static void SaveToFile(List<KhachHang> khList, string fileName)
+        public static void SaveToFile(List<KhachHang> khList, string fileName, bool insert)
         {
             try
             {
-                string[] lines = File.ReadAllLines(fileName);
-                string data = lines[0]+"\n";
-                foreach (var kh in khList)
+                if (insert)
                 {
-                    data += kh.ToString() + "\n";
-                } 
-                File.WriteAllText(fileName,data);
+                    MessageBox.Show("if");
+                    using (StreamWriter sw = File.AppendText(fileName))
+                    {
+                        foreach (var kh in khList)
+                        {
+                            sw.WriteLine(kh.ToString());
+                        }
+                    }
+                }
+                else
+                {
+                    string[] lines = File.ReadAllLines(fileName);
+                    string data = lines[0] + "\n";
+                    foreach (var kh in khList)
+                    {
+                        data += kh.ToString() + "\n";
+                    }
+                    File.WriteAllText(fileName, data);
+                    //string[] lines = File.ReadAllLines(fileName);
+                    //using (StreamWriter sw = new StreamWriter(fileName))
+                    //{
+                    //    sw.WriteLine("bool insert = false;");
+                    //    foreach (var kh in khList)
+                    //    {
+                    //        sw.WriteLine(kh.ToString());
+                    //    }
+                    //}
+                }
             }
             catch (Exception e)
             {

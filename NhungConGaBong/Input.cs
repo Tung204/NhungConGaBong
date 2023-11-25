@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -22,7 +23,11 @@ namespace NhungConGaBong
                 e.Handled = true; 
             }
         }
-
+        public static void SoNguyen(KeyPressEventArgs e)
+        {
+            if (!(e.KeyChar >= '0' && e.KeyChar <= '9' || e.KeyChar == (char)8))
+                e.Handled = true;
+        }
         public static void SoThuc(TextBox t, KeyPressEventArgs e)
         {
             if (!(e.KeyChar >= '0' && e.KeyChar <= '9'
@@ -41,7 +46,26 @@ namespace NhungConGaBong
                 e.Handled = true; 
             }
         }
+        public static bool IsValidEmail(string email)
+        {
+            string pattern = @"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$";
 
+            return Regex.IsMatch(email, pattern);
+        }
+        public static void ClearTextBoxes(Control control, TextBox exclusions)
+        {
+            foreach (Control c in control.Controls)
+            {
+                if (c is TextBox && c != exclusions)
+                {
+                    ((TextBox)c).Text = "";
+                }
+                else if (c.HasChildren)
+                {
+                    ClearTextBoxes(c, exclusions); // Gọi đệ quy nếu control đó là một container
+                }
+            }
+        }
     }
 }
 
