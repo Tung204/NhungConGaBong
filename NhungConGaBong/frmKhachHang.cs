@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace NhungConGaBong
 {
@@ -18,7 +19,7 @@ namespace NhungConGaBong
         List<KhachHang> khachhangList = new List<KhachHang>();
         List<KhachHang> khList = new List<KhachHang>();
         List<NganHang> nganhangList = new List<NganHang>();
-
+        int maxMakh;
         public frmKhachHang()
         {
             InitializeComponent();
@@ -34,11 +35,53 @@ namespace NhungConGaBong
             string fileName = path + @"\FileNganHang.csv";
             nganhangList = NganHang.ReadFromFile(fileName);
             cboNH.DataSource = nganhangList;
-            cboNH.DisplayMember = "TenNH";
+            cboNH.DisplayMember = "TenGD";
             cboNH.ValueMember = "ID";
             cboNH.SelectedIndex = -1;
-            khList.Clear();
+
+            cboTimNganHang.DataSource = nganhangList;
+            cboTimNganHang.DisplayMember = "TenGD";
+            cboTimNganHang.ValueMember = "ID";
+            cboTimNganHang.SelectedIndex = -1;
+
+            fileName = path + @"\FileKhachHang.csv";
+            khachhangList = KhachHang.ReadFromFile(fileName);
+
             gpbThongTin.Hide();
+            if (khachhangList.Count == 0)
+            {
+                Random random = new Random();
+                maxMakh = random.Next(100000000, 999999999);
+                txtMaKH.Text = "KH" + maxMakh.ToString("D2");
+            }
+            else
+            {
+                if (khachhangList.Any(kh => kh.MaKH.StartsWith("KH")))
+                {
+                    khachhangList.ForEach(kh => kh.MaKH = kh.MaKH.Replace("KH", ""));
+                }
+                maxMakh = khachhangList.Select(kh => Convert.ToInt32(kh.MaKH)).Max();
+                txtMaKH.Text = "KH" + (maxMakh + 1).ToString("D2");
+            }
+        }
+
+        private void dgvKhachHang_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0 && e.RowIndex < dgvKhachHang.Rows.Count)
+            {
+                btnHienSua.Enabled = true;
+                btnXoa.Enabled = true;
+
+                DataGridViewRow selectedRow = dgvKhachHang.Rows[e.RowIndex];
+                txtMaKH.Text = selectedRow.Cells["MaKH"].Value.ToString()!;
+                txtHoDem.Text = selectedRow.Cells["HoDem"].Value.ToString();
+                txtTen.Text = selectedRow.Cells["tenKH"].Value.ToString();
+                txtSDT.Text = selectedRow.Cells["Dienthoai"].Value.ToString();
+                txtEmail.Text = selectedRow.Cells["Email"].Value.ToString();
+                txtMaSoThue.Text = selectedRow.Cells["MaSoThue"].Value.ToString();
+                txtSoTK.Text = selectedRow.Cells["stk"].Value.ToString();
+                cboNH.SelectedValue = Convert.ToInt32(selectedRow.Cells["NganHangID"].Value);
+            }
         }
 
         private void btnThem_Click(object sender, EventArgs e)
@@ -46,10 +89,34 @@ namespace NhungConGaBong
             dgvKhachHang.AutoGenerateColumns = false;
 
             KhachHang kh = new KhachHang();
-            txtMaKH.Text = kh.MaKH;
-            kh.HoDemKH = txtHoDem.Text;
-            kh.TenKH = txtTen.Text;
+            kh.MaKH = txtMaKH.Text;
+            if(txtHoDem.Text == "")
+            {
+                MessageBox.Show("Bạn chưa nhập họ đệm","Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtHoDem.Focus();
+                return;
+            }    
+            kh.HoDemKH = GetString.Proper(txtHoDem.Text);
+            if (txtTen.Text == "")
+            {
+                MessageBox.Show("Bạn chưa nhập tên", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtHoDem.Focus();
+                return;
+            }
+            kh.TenKH = GetString.Proper(txtTen.Text);
+            if (txtSDT.Text == "")
+            {
+                MessageBox.Show("Bạn chưa nhập số điện thoại", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtHoDem.Focus();
+                return;
+            }
             kh.DienThoai = txtSDT.Text;
+            if (!Input.IsValidEmail(txtEmail.Text))
+            {
+                MessageBox.Show("Vui lòng nhập địa chỉ email hợp lệ!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtEmail.Focus();
+                return;
+            }
             kh.Email = txtEmail.Text;
             kh.MaSoThue = txtMaSoThue.Text;
             kh.STK = txtSoTK.Text;
@@ -57,12 +124,18 @@ namespace NhungConGaBong
             kh.NganHangID = Convert.ToInt32(cboNH.SelectedValue);
             khList.Add(kh);
 
+            maxMakh++;
+            txtMaKH.Text = "KH" + (maxMakh + 1).ToString("D2");
+
             dgvKhachHang.DataSource = null;
             dgvKhachHang.DataSource = khList;
             dgvKhachHang.AutoGenerateColumns = true;
-            btnHienSua.Enabled = true;
+
             btnLuu.Enabled = true;
 
+            Input.ClearTextBoxes(this, txtMaKH);
+            cboNH.SelectedIndex = -1;
+            txtHoDem.Focus();
         }
 
         private void btnLuu_Click(object sender, EventArgs e)
@@ -75,26 +148,23 @@ namespace NhungConGaBong
         private void btnSua_Click(object sender, EventArgs e)
         {
             dgvKhachHang.AutoGenerateColumns = false;
-            string maKH = txtMaKH.Text;
-            string hoDem = txtHoDem.Text;
-            string tenKH = txtTen.Text;
-            string Dienthoai = txtSDT.Text;
-            string email = txtEmail.Text;
-            string masothue = txtMaSoThue.Text;
-            string stk = txtSoTK.Text;
-            int nganHangID = Convert.ToInt32(cboNH.SelectedValue);
 
-            KhachHang khachHang = khList.FirstOrDefault(kh => kh.MaKH == maKH);
-
-            if (khachHang != null)
+            KhachHang kh = khList.FirstOrDefault(kh => kh.MaKH == txtMaKH.Text);
+            if (kh != null)
             {
-                khachHang.HoDemKH = hoDem;
-                khachHang.TenKH = tenKH;
-                khachHang.DienThoai = Dienthoai;
-                khachHang.Email = email;
-                khachHang.MaSoThue = masothue;
-                khachHang.STK = stk;
-                khachHang.NganHangID = nganHangID;
+                kh.HoDemKH = GetString.Proper(txtHoDem.Text);
+                kh.TenKH = GetString.Proper(txtTen.Text);
+                kh.DienThoai = txtSDT.Text;
+                if (!Input.IsValidEmail(txtEmail.Text))
+                {
+                    MessageBox.Show("Vui lòng nhập địa chỉ email hợp lệ!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtEmail.Focus();
+                    return;
+                }
+                kh.Email = txtEmail.Text;
+                kh.MaSoThue = txtMaSoThue.Text;
+                kh.STK = txtSoTK.Text;
+                kh.NganHangID = Convert.ToInt32(cboNH.SelectedValue);
                 dgvKhachHang.DataSource = null;
                 dgvKhachHang.DataSource = khList;
                 dgvKhachHang.AutoGenerateColumns = true;
@@ -118,23 +188,7 @@ namespace NhungConGaBong
             }
         }
 
-        private void dgvKhachHang_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex >= 0 && e.RowIndex < dgvKhachHang.Rows.Count)
-            {
-                DataGridViewRow selectedRow = dgvKhachHang.Rows[e.RowIndex];
-                txtMaKH.Text = selectedRow.Cells["MaKH"].Value.ToString();
-                txtHoDem.Text = selectedRow.Cells["HoDem"].Value.ToString();
-                txtTen.Text = selectedRow.Cells["tenKH"].Value.ToString();
-                txtSDT.Text = selectedRow.Cells["Dienthoai"].Value.ToString();
-                txtEmail.Text = selectedRow.Cells["Email"].Value.ToString();
-                txtMaSoThue.Text = selectedRow.Cells["MaSoThue"].Value.ToString();
-                txtSoTK.Text = selectedRow.Cells["stk"].Value.ToString();
-                cboNH.SelectedValue = Convert.ToInt32(selectedRow.Cells["NganHangID"].Value);
-            }
-        }
-
-        private void FilterStudentLinQ2(string text)
+        private void FilterLinQ(string text)
         {
             text = text.ToUpper();
             var results = from s in khachhangList
@@ -147,7 +201,7 @@ namespace NhungConGaBong
         private void txtTim_TextChanged(object sender, EventArgs e)
         {
             string text = txtTim.Text.Trim();
-            FilterStudentLinQ2(text);
+            FilterLinQ(text);
         }
 
         private void btnXuatDS_Click(object sender, EventArgs e)
@@ -159,7 +213,7 @@ namespace NhungConGaBong
                     (st, ind) =>
                     {
                         string Nghang = ind.TenNH;
-                        return new { st.MaKH, st.HoDemKH, st.TenKH, st.DienThoai, st.Email, st.MaSoThue, st.STK, Nghang, st.NgayLap };
+                        return new { st.MaKH, st.HoDemKH, st.TenKH, st.DienThoai, st.Email, st.MaSoThue, st.STK, Nghang, st.NganHangID, st.NgayLap };
                     });
             dgvXuatKH.DataSource = results.ToList();
         }
@@ -200,14 +254,95 @@ namespace NhungConGaBong
                 if (result == DialogResult.Yes)
                 {
                     khachhangList.RemoveAt(selectedIndex);
-                    string _Path = AppDomain.CurrentDomain.BaseDirectory;
-                    string fileName = _Path + @"\FileKhachHang.csv";
-                    KhachHang.SaveToFile(khachhangList, fileName, false);
+                    
                     dgvXuatKH.DataSource = null;
-                    btnXuatDS.PerformClick();
+                    dgvXuatKH.DataSource = khachhangList;
                     dgvXuatKH.AutoGenerateColumns = true;
                 }
             }
+        }
+
+        private void btnThemNH_Click(object sender, EventArgs e)
+        {
+            var frm = new frmNganHang();
+            frm.ShowDialog();
+            frmKhachHang_Load(sender, e);
+            gpbThongTin.Visible = true;
+        }
+
+        private void cboTimNganHang_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+
+            int nghangId = Convert.ToInt32(cboTimNganHang.SelectedValue);
+            //sinhvienList và nganhList là Thành viên của frmStudentView Class
+            var results = khachhangList.Join(nganhangList, sv => sv.NganHangID, ng => ng.ID,
+                    (st, ind) =>
+                    {
+                        string Nghang = ind.TenNH;
+                        return new { st.MaKH, st.HoDemKH, st.TenKH, st.DienThoai, st.Email, st.MaSoThue, st.STK, Nghang, st.NganHangID, st.NgayLap };
+                    }).Where(s => s.NganHangID == nghangId);
+
+            // Binding / Bound dữ liệu từ List được trả về từ truy vấn trên vào DataGirdView (dgvStudent)
+            dgvXuatKH.DataSource = results.ToList();
+        }
+
+        private void txtSDT_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            Input.SoNguyen(e);
+            txtSDT.MaxLength = 11;
+        }
+
+        private void txtMaSoThue_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            txtMaSoThue.MaxLength = 13;
+        }
+
+        private void dgvXuatKH_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            string fieldName = dgvXuatKH.Columns[e.ColumnIndex].Name;
+            // Lấy trạng thái đã SortOrder
+            SortOrder strSortOrder = getSortOrder(e.ColumnIndex);
+
+            if (strSortOrder == SortOrder.Ascending)
+            {
+                dgvXuatKH.DataSource = khachhangList.OrderBy(p => p.GetType().GetProperty(fieldName).GetValue(p, null)).ToList();
+            }
+            else
+            {
+                dgvXuatKH.DataSource = khachhangList.OrderByDescending(p => p.GetType().GetProperty(fieldName).GetValue(p, null)).ToList();
+            }
+            dgvKhachHang.Columns[e.ColumnIndex].HeaderCell.SortGlyphDirection = strSortOrder;
+        }
+        private SortOrder getSortOrder(int columnIndex)
+        {
+            if (dgvXuatKH.Columns[columnIndex].HeaderCell.SortGlyphDirection == SortOrder.None ||
+                dgvXuatKH.Columns[columnIndex].HeaderCell.SortGlyphDirection == SortOrder.Descending)
+            {
+                dgvXuatKH.Columns[columnIndex].HeaderCell.SortGlyphDirection = SortOrder.Ascending;
+                return SortOrder.Ascending;
+            }
+            else
+            {
+                dgvXuatKH.Columns[columnIndex].HeaderCell.SortGlyphDirection = SortOrder.Descending;
+                return SortOrder.Descending;
+            }
+        }
+
+        private void dgvXuatKH_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
+        {
+            SacDataGridView.SetRowNumber(sender, e);
+        }
+
+        private void txtSoTK_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            Input.SoNguyen(e);
+        }
+
+        private void btnBackup_Click(object sender, EventArgs e)
+        {
+            string _Path = AppDomain.CurrentDomain.BaseDirectory;
+            string fileName = _Path + @"\FileKhachHang.csv";
+            KhachHang.SaveToFile(khachhangList, fileName, false);
         }
     }
 }

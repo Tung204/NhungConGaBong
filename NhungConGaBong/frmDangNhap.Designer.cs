@@ -43,9 +43,9 @@
             elipseControl1 = new ElipseControl();
             elipseControl2 = new ElipseControl();
             elipseControl3 = new ElipseControl();
-            elipseControl4 = new ElipseControl();
             elipseControl5 = new ElipseControl();
             elipseControl6 = new ElipseControl();
+            elipseControl4 = new ElipseControl();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel1.SuspendLayout();
             SuspendLayout();
@@ -197,11 +197,6 @@
             elipseControl3.CornerRadius = 15;
             elipseControl3.TargetControl = txtTenDangNhap;
             // 
-            // elipseControl4
-            // 
-            elipseControl4.CornerRadius = 30;
-            elipseControl4.TargetControl = this;
-            // 
             // elipseControl5
             // 
             elipseControl5.CornerRadius = 8;
@@ -212,10 +207,16 @@
             elipseControl6.CornerRadius = 8;
             elipseControl6.TargetControl = btnThoat;
             // 
+            // elipseControl4
+            // 
+            elipseControl4.CornerRadius = 30;
+            elipseControl4.TargetControl = this;
+            // 
             // frmDangNhap
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            AutoValidate = AutoValidate.EnablePreventFocusChange;
             ClientSize = new Size(369, 404);
             Controls.Add(label1);
             Controls.Add(panel1);
@@ -227,7 +228,6 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "QUẢN LÝ KHÁCH HÀNG";
             FormClosing += frmDangNhap_FormClosing;
-            Load += frmDangNhap_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
@@ -251,8 +251,8 @@
         private ElipseControl elipseControl1;
         private ElipseControl elipseControl2;
         private ElipseControl elipseControl3;
-        private ElipseControl elipseControl4;
         private ElipseControl elipseControl5;
         private ElipseControl elipseControl6;
+        private ElipseControl elipseControl4;
     }
 }

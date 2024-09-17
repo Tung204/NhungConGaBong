@@ -9,13 +9,6 @@
 *.user
 *.userosscache
 *.sln.docstates
-
-# User-specific files (MonoDevelop/Xamarin Studio)
-*.userprefs
-
-# Mono auto generated files
-mono_crash.*
-
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/
@@ -32,6 +25,15 @@ bld/
 [Oo]ut/
 [Ll]og/
 [Ll]ogs/
+
+# User-specific files (MonoDevelop/Xamarin Studio)
+*.userprefs
+
+# Mono auto generated files
+mono_crash.*
+
+# Build results
+
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/

@@ -8,18 +8,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using System.Collections;
 namespace NhungConGaBong
 {
     public partial class frmDangNhap : Form
     {
+        Hashtable ht = new Hashtable();
         public frmDangNhap()
         {
             InitializeComponent();
-        }
-        private void frmDangNhap_Load(object sender, EventArgs e)
-        {
             CenterPictureBox();
+            ht.Add("Admin", "Admin123");
         }
         private void frmDangNhap_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -32,40 +31,34 @@ namespace NhungConGaBong
         {
             Application.Exit();
         }
-
         private void ckHienMK_CheckedChanged(object sender, EventArgs e)
         {
-            if (ckHienMK.Checked)
-                txtMatKhau.UseSystemPasswordChar = false;
-            else
-                txtMatKhau.UseSystemPasswordChar = true;
+            txtMatKhau.UseSystemPasswordChar = !ckHienMK.Checked;
         }
         private void CenterPictureBox()
         {
             pictureBox1.Location = new Point((this.ClientSize.Width - pictureBox1.Width) / 2, 0);
         }
-
         private void btnDangNhap_Click(object sender, EventArgs e)
         {
-            if (txtTenDangNhap.Text == "Admin")
+            if (ht.Contains(txtTenDangNhap.Text))
             {
-                if (txtMatKhau.Text == "123456")
+                if (ht[txtTenDangNhap.Text].ToString() == txtMatKhau.Text)
                 {
                     var frm = new frmQLKH();
                     this.Hide();
                     frm.ShowDialog();
-                    this.Show();
+                    //this.Show();
                 }
                 else
                 {
-                    MessageBox.Show("Mật khẩu sai vui lòng thử lại.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Mật khẩu không đúng vui lòng thử lại.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     txtMatKhau.Focus();
                 }
-
             }
             else
             {
-                MessageBox.Show("Tên đăng nhập hoặc mật khẩu không đúng xin vui lòng thử lại.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Tài khoản không tồn tại.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtTenDangNhap.Focus();
             }
         }
